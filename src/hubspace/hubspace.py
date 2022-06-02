@@ -25,13 +25,22 @@ class Hubspace:
         return self.get("accounts/" + self._user.getAccountID() + "/devices" + getExpansions(expansions))
 
     def getDeviceStates(self):
-        return [ device["deviceState"] for device in self.getDevices(["state"]) ]
+        return [ {
+            "deviceID": device.get(['deviceId']),
+            "deviceState": device["deviceState"]
+        } for device in self.getDevices(["state"]) ]
 
     def getDeviceTags(self):
-        return [ device["deviceTags"] for device in self.getDevices(["tags"]) ]
+        return [ {
+            "deviceID": device.get(['deviceId']),
+            "deviceTags": device["deviceTags"]
+        } for device in self.getDevices(["tags"]) ]
 
     def getDeviceAttributes(self):
-        return [ device["attributes"] for device in self.getDevices(["attributes"]) ]
+        return [ {
+            "deviceID": device.get(['deviceId']),
+            "attributes": device["attributes"]
+        } for device in self.getDevices(["attributes"]) ]
 
     def getMetadata(self):
         return self.get("accounts/" + self._user.getAccountID() + "/metadevices", host="semantics2.afero.net")
