@@ -21,7 +21,7 @@ class Hubspace:
     def put(self, path, data=None, host=None):
         return self._user.put(path, data, host)
 
-    def getDevices(self, expansions=[]):
+    def getDeviceInfo(self, expansions=[]):
         return self.get("accounts/" + self._user.getAccountID() + "/devices" + getExpansions(expansions))
 
     def getDeviceStates(self):
@@ -38,6 +38,9 @@ class Hubspace:
 
     def getConclaveAccess(self):
         return self.post("accounts/" + self._user.getAccountID() + "/conclaveAccess", data="{}", host="api2.afero.net")
+
+    def getDevices(self):
+        return [ self.getDevice(device.get(['deviceId'])) for device in self.getDeviceInfo() if not device.get(['deviceId']) == None]
 
     def getDevice(self, deviceID):
         if self.devices.get(deviceID) == None:

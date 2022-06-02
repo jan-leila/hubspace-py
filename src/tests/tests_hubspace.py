@@ -1,13 +1,13 @@
 import json
 
 from credentials import username, password
-from hubspace.hubspace import Hubspace
+from hubspace import Hubspace
 
 hubspace = Hubspace(username, password)
 
 def runTests():
     print("devices:")
-    print(json.dumps(hubspace.getDevices()))
+    print(json.dumps(hubspace.getDeviceInfo()))
     print("devices states:")
     print(json.dumps(hubspace.getDeviceStates()))
     print("devices tags:")
