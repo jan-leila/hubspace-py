@@ -1,0 +1,11 @@
+
+[project]
+name = "hubspace"
+version = "0.0.1"
+readme = "README.md"
+authors = [{ name = "Leyla Becker", email = "git@jan-leila.com" }]
+license = { file = "LICENSE" }
+keywords = ["hubspace", "iot"]
+
+[project.urls]
+Homepage = "https://github.com/jan-leila/hubspace-py"
