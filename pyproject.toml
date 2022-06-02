@@ -1,7 +1,7 @@
 
 [project]
 name = "hubspace"
-version = "0.0.1"
+version = "1.0.0"
 readme = "README.md"
 authors = [{ name = "Leyla Becker", email = "git@jan-leila.com" }]
 license = { file = "LICENSE" }
