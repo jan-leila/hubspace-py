@@ -1,5 +1,7 @@
 # hubspace-py
 
+https://pypi.org/project/hubspace/1.0.0/
+
 tools for intergrading with hubspace though python
 
 ### installing:
