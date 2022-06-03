@@ -6,8 +6,8 @@ class Hubspace:
 
     devices = {}
 
-    def __init__(self, username=None, password=None, refresh_token=None):
-        self._user = HubspaceUser(username, password, refresh_token)
+    def __init__(self, username=None, password=None, token=None):
+        self._user = HubspaceUser(username=username, password=password, token=token)
 
     def getAccountID(self):
         return self._user.getAccountID()

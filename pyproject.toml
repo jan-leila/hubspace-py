@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hubspace"
-version = "1.1.1"
+version = "1.1.2"
 readme = "README.md"
 authors = [{ name = "Leyla Becker", email = "git@jan-leila.com" }]
 license = { file = "LICENSE" }
