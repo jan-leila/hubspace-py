@@ -77,9 +77,10 @@ class HubspaceUser:
 
     _accountID = None
 
-    def __init__(self, username, password, token_duration=_default_duration, _expiration_buffer=_default_expiration_buffer):
+    def __init__(self, username=None, password=None, token=None, token_duration=_default_duration, _expiration_buffer=_default_expiration_buffer):
         self._username = username
         self._password = password
+        self._refresh_token = token
         self._token_duration = token_duration
         self._expiration_buffer = _expiration_buffer
 
@@ -118,6 +119,9 @@ class HubspaceUser:
 
     def _getAuthorization(self):
         return "Bearer " + self._getAccessToken()
+        
+    def exportCredentials(self):
+        return self._getRefreshToken()
     
     def testCredentials(self):
         try:
@@ -142,7 +146,7 @@ class HubspaceUser:
 
         return headers
     
-    def get(self, path, data=None, host=None):
+    def get(self, path="", data=None, host=None):
         with requests.get(
             url=self._api + path,
             headers=self._getHeaders(host),
@@ -150,7 +154,7 @@ class HubspaceUser:
         ) as r:
             return r.json()
 
-    def post(self, path, data=None, host=None):
+    def post(self, path="", data=None, host=None):
         with requests.post(
             url=self._api + path,
             headers=self._getHeaders(host),
@@ -158,7 +162,7 @@ class HubspaceUser:
         ) as r:
             return r.json()
 
-    def put(self, path, data=None, host=None):
+    def put(self, path="", data=None, host=None):
         with requests.put(
             url=self._api + path,
             headers=self._getHeaders(host),

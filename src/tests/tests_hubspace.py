@@ -7,7 +7,7 @@ hubspace = Hubspace(username, password)
 
 def runTests():
     print("devices:")
-    print(json.dumps(hubspace.getDeviceInfo()))
+    print(json.dumps(hubspace.getDevicesInfo()))
     print("devices states:")
     print(json.dumps(hubspace.getDeviceStates()))
     print("devices tags:")
@@ -15,15 +15,15 @@ def runTests():
     print("devices attributes:")
     print(json.dumps(hubspace.getDeviceAttributes()))
     print("devices states tags attributes:")
-    print(json.dumps(hubspace.getDevices([
+    print(json.dumps(hubspace.getDevicesInfo([
         "state",
         "tags",
         "attributes",
     ])))
+    print(hubspace.getDevices())
 
     print("conclave access:")
     print(hubspace.getConclaveAccess())
-
 
     print("\nmetadata:")
     print(json.dumps(hubspace.getMetadata()))

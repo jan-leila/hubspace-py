@@ -6,8 +6,8 @@ class Hubspace:
 
     devices = {}
 
-    def __init__(self, username, password):
-        self._user = HubspaceUser(username, password)
+    def __init__(self, username=None, password=None, refresh_token=None):
+        self._user = HubspaceUser(username, password, refresh_token)
 
     def getAccountID(self):
         return self._user.getAccountID()
@@ -21,26 +21,26 @@ class Hubspace:
     def put(self, path, data=None, host=None):
         return self._user.put(path, data, host)
 
-    def getDeviceInfo(self, expansions=[]):
+    def getDevicesInfo(self, expansions=[]):
         return self.get("accounts/" + self._user.getAccountID() + "/devices" + getExpansions(expansions))
 
     def getDeviceStates(self):
         return [ {
-            "deviceID": device.get(['deviceId']),
-            "deviceState": device["deviceState"]
-        } for device in self.getDevices(["state"]) ]
+            "deviceID": device.get('deviceId'),
+            "deviceState": device["deviceState"],
+        } for device in self.getDevicesInfo(["state"]) ]
 
     def getDeviceTags(self):
         return [ {
-            "deviceID": device.get(['deviceId']),
+            "deviceID": device.get('deviceId'),
             "deviceTags": device["deviceTags"]
-        } for device in self.getDevices(["tags"]) ]
+        } for device in self.getDevicesInfo(["tags"]) ]
 
     def getDeviceAttributes(self):
         return [ {
-            "deviceID": device.get(['deviceId']),
+            "deviceID": device.get('deviceId'),
             "attributes": device["attributes"]
-        } for device in self.getDevices(["attributes"]) ]
+        } for device in self.getDevicesInfo(["attributes"]) ]
 
     def getMetadata(self):
         return self.get("accounts/" + self._user.getAccountID() + "/metadevices", host="semantics2.afero.net")
@@ -49,9 +49,22 @@ class Hubspace:
         return self.post("accounts/" + self._user.getAccountID() + "/conclaveAccess", data="{}", host="api2.afero.net")
 
     def getDevices(self):
-        return [ self.getDevice(device.get(['deviceId'])) for device in self.getDeviceInfo() if not device.get(['deviceId']) == None]
+        return [ self.getDevice(device.get('deviceId')) for device in self.getDevicesInfo() if not device.get('deviceId') == None]
 
     def getDevice(self, deviceID):
         if self.devices.get(deviceID) == None:
             self.devices[deviceID] = HubspaceDevice(self, deviceID)
         return self.devices[deviceID]
+
+    def testCredentials(self):
+        return self._user.testCredentials()
+    
+    def exportCredentials(self):
+        return self._user.x()
+
+    def ping(self):
+        try:
+            self._user.get()
+            return True
+        except:
+            return False
