@@ -60,7 +60,7 @@ class Hubspace:
         return self._user.testCredentials()
     
     def exportCredentials(self):
-        return self._user.x()
+        return self._user.exportCredentials()
 
     def ping(self):
         try:
