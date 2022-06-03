@@ -1,4 +1,8 @@
 
+[build-system]
+requires      = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "hubspace"
 version = "1.1.0"
@@ -6,9 +10,7 @@ readme = "README.md"
 authors = [{ name = "Leyla Becker", email = "git@jan-leila.com" }]
 license = { file = "LICENSE" }
 keywords = ["hubspace", "iot"]
+dependencies = ["requests==2.27.1"]
 
 [project.urls]
 Homepage = "https://github.com/jan-leila/hubspace-py"
-
-[build-system]
-requires = ["requests==2.27.1"]
