@@ -7,8 +7,8 @@ import requests
 import datetime
 import json
 
-_default_duration = 120 * 1000
-_default_expiration_buffer = 10 * 1000
+_default_duration = 120 #seconds
+_default_expiration_buffer = 10 #seconds
 
 def _getTokenBody(token):
     body_base64 = token.split(".")[1]
@@ -93,7 +93,7 @@ class HubspaceUser:
 
         now = datetime.datetime.now().timestamp()
 
-        if self._access_token == None or self._access_token_exp - self._expiration_buffer >= now:
+        if self._access_token == None or self._access_token_exp - self._expiration_buffer < now:
             with requests.post(
                 "https://accounts.hubspaceconnect.com/auth/realms/thd/protocol/openid-connect/token",
                 data={        
@@ -112,7 +112,7 @@ class HubspaceUser:
                 if not body["exp"] == None:
                     self._access_token_exp = body["exp"]
                 elif not body["iat"] == None:
-                    self._access_token_exp = body["exp"] + self._token_duration
+                    self._access_token_exp = body["iat"] + self._token_duration
                 else:
                     self._access_token_exp = now + self._token_duration
         return self._access_token
